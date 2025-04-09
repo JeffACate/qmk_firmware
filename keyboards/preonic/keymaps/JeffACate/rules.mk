@@ -1,2 +1,4 @@
 SRC += muse.c
 MOUSEKEY_ENABLE = yes
+RGBLIGHT_DEFAULT_ON = true
+BACKLIGHT_ENABLE = yes
