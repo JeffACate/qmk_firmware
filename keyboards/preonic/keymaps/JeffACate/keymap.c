@@ -42,63 +42,57 @@ enum preonic_layers {
   _mouse
 };
 
-enum preonic_keycodes {
-//   colmak = SAFE_RANGE,
-//   num,
-//   sym,
-//   nav,
-//   func,
-//   game,
-//   qwerty,
-//   layer7,
-//   mouse,
-  BACKLIT = SAFE_RANGE
-};
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-switch (keycode) {
-        // case LOWER:
-        // if (record->event.pressed) {
-        //     layer_on(_LOWER);
-        //     update_tri_layer(_LOWER, _RAISE, _ADJUST);
-        // } else {
-        //     layer_off(_LOWER);
-        //     update_tri_layer(_LOWER, _RAISE, _ADJUST);
-        // }
-        // return false;
-        // break;
-        // case RAISE:
-        // if (record->event.pressed) {
-        //     layer_on(_RAISE);
-        //     update_tri_layer(_LOWER, _RAISE, _ADJUST);
-        // } else {
-        //     layer_off(_RAISE);
-        //     update_tri_layer(_LOWER, _RAISE, _ADJUST);
-        // }
-        // return false;
-        // break;
-        case BACKLIT:
-        if (record->event.pressed) {
-            register_code(KC_RSFT);
-            #ifdef BACKLIGHT_ENABLE
-            backlight_step();
-            #endif
-            #ifdef RGBLIGHT_ENABLE
-            rgblight_step();
-            #endif
-            #ifdef __AVR__
-            gpio_write_pin_low(E6);
-            #endif
-        } else {
-            unregister_code(KC_RSFT);
-            #ifdef __AVR__
-            gpio_write_pin_high(E6);
-            #endif
-        }
-        return false;
-        break;
-    }
-    return true;
-};
+// enum preonic_keycodes {
+// //   colmak = SAFE_RANGE,
+// //   num,
+// //   sym,
+// //   nav,
+// //   func,
+// //   game,
+// //   qwerty,
+// //   layer7,
+//     // BACKLIT = SAFE_RANGE,
+//     // mouse
+// };
+
+// bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+// // switch (keycode) {
+//         // case LOWER:
+//         // if (record->event.pressed) {
+//         //     layer_on(_LOWER);
+//         //     update_tri_layer(_LOWER, _RAISE, _ADJUST);
+//         // } else {
+//         //     layer_off(_LOWER);
+//         //     update_tri_layer(_LOWER, _RAISE, _ADJUST);
+//         // }
+//         // return false;
+//         // break;
+//         // case RAISE:
+//         // if (record->event.pressed) {
+//         //     layer_on(_RAISE);
+//         //     update_tri_layer(_LOWER, _RAISE, _ADJUST);
+//         // } else {
+//         //     layer_off(_RAISE);
+//         //     update_tri_layer(_LOWER, _RAISE, _ADJUST);
+//         // }
+//         // return false;
+//         // break;
+//         // if(IS_LAYER_ON(8))
+//         {
+//             // if (record->event.pressed) {
+//                 // register_code(KC_RSFT);
+//                 #ifdef RGBLIGHT_ENABLE
+//                 rgblight_step();
+//                 break;
+//                 #endif
+//                 // #ifdef __AVR__
+//                 //     gpio_write_pin_low(E6);
+//                 // #endif
+//                 // return false;
+//             // }
+//         }
+//         return true;
+// };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
@@ -119,7 +113,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   // 1           , 2           , 3           , 4             , 5             , 6              , 7       , 8             , 9            , 10          , 11          , 12
     KC_F1        , KC_F2       , KC_F3       , KC_F4         , KC_F5         , KC_F6          , KC_F7   , KC_F8         , KC_F9        , KC_F10      , KC_F11      , KC_F12         ,
     KC_Q         , KC_W        , KC_F        , KC_P          , KC_G          , TG(3)          , TG(5)   , KC_J          , KC_L         , KC_U        , KC_Y        , KC_SCLN        ,
-    LGUI_T(KC_A) , LALT_T(KC_R), LSFT_T(KC_S), LCTL_T(KC_T)  , KC_D          , KC_TRNS        , KC_TRNS , KC_H          , LCTL_T(KC_N) , LSFT_T(KC_E), LALT_T(KC_I), LGUI_T(KC_O)   ,
+    LGUI_T(KC_A) , LALT_T(KC_R), LSFT_T(KC_S), LCTL_T(KC_T)  , KC_D          , UG_TOGG        , KC_TRNS , KC_H          , LCTL_T(KC_N) , LSFT_T(KC_E), LALT_T(KC_I), LGUI_T(KC_O)   ,
     LCTL_T(KC_Z) , KC_X        , KC_C        , KC_V          , KC_B          , KC_CAPS        , KC_NO   , KC_K          , KC_M         , KC_COMM     , KC_DOT      , LCTL_T(KC_SLSH),
     KC_NO        , KC_NO       , KC_NO       , LT(3, KC_TAB) , LT(1, KC_SPC) , LT(4, KC_BSPC) , KC_ESC  , LT(2, KC_ENT) , LT(8, KC_DEL), KC_NO       , KC_NO       , KC_NO)         ,
 
